@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  /* Willow Color Palette */
+  --color-willow-50: #f6fdf0;
+  --color-willow-100: #e8fbd8;
+  --color-willow-200: #d1f6b5;
+  --color-willow-300: #aeec83;
+  --color-willow-400: #9BCF53;  /* PRIMARY WILLOW GREEN */
+  --color-willow-500: #88b847;
+  --color-willow-600: #6fb32d;
+  --color-willow-700: #549020;
+
+  /* Gray Color Palette */
+  --color-gray-50: #F9FAFB;     /* Card backgrounds */
+  --color-gray-100: #F3F4F6;    /* Alt backgrounds */
+  --color-gray-200: #E5E7EB;     /* Borders */
+  --color-gray-300: #D1D5DB;     /* Subtle borders */
+  --color-gray-400: #9CA3AF;    /* Disabled */
+  --color-gray-500: #6B7280;     /* Medium gray - secondary text */
+  --color-gray-600: #4B5563;     /* Body text */
+  --color-gray-700: #374151;     /* Dark text */
+  --color-gray-800: #1F2937;     /* Primary text (dark) */
+  --color-gray-900: #111827;     /* Darkest */
+}

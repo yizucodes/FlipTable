@@ -1,0 +1,45 @@
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* ElevenLabs Widget Styling - Centered on Screen */
+elevenlabs-convai {
+  display: block;
+  position: fixed !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 1000 !important;
+  max-width: 500px;
+  width: 90vw;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+/* Center the widget's popup/dialog if it creates one */
+elevenlabs-convai + div,
+elevenlabs-convai ~ div[style*="position: fixed"] {
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* Ensure widget is responsive and touch-friendly */
+@media (max-width: 640px) {
+  elevenlabs-convai {
+    min-height: 400px;
+    width: 95vw;
+    max-width: 95vw;
+  }
+}
+
+@media (min-width: 641px) {
+  elevenlabs-convai {
+    min-height: 500px;
+  }
+}
