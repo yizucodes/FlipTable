@@ -1,0 +1,14 @@
+[
+  {
+    "restaurant_id": "rest_001",
+    "name": "Mario's Pizza",
+    "phone": "+1-415-555-0123",
+    "address": "742 Valencia St, San Francisco, CA 94110",
+    "contact": "Tony",
+    "inventory": [
+      {"item": "Margherita Pizza", "quantity": 8, "original_price": 18.00},
+      {"item": "Pepperoni Pizza", "quantity": 6, "original_price": 20.00}
+    ]
+  }
+]
+
