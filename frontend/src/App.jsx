@@ -80,7 +80,10 @@ function App() {
       {/* Header - Willow green background with white text */}
       <header className="bg-willow-400 text-white py-6 px-4 sm:px-8 shadow-sm">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl font-bold mb-2">🔄 FlipTable</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 flex items-center gap-3">
+            <img src="/fliptable-logo.svg" alt="FlipTable Logo" className="w-10 h-10 sm:w-12 sm:h-12" />
+            FlipTable
+          </h1>
           <p className="text-sm sm:text-base opacity-90">Flip waste into revenue in minutes</p>
         </div>
       </header>
@@ -145,7 +148,7 @@ function App() {
             {demoState === 'calling' && (
               <div className="flex flex-col items-center">
                 <div className="text-base sm:text-lg font-bold text-willow-400 mb-6 flex items-center">
-                  <span className="text-2xl mr-2">📞</span>
+                  <img src="/fliptable-logo.svg" alt="FlipTable" className="w-8 h-8 mr-2 animate-spin" style={{ animationDuration: '3s' }} />
                   Agent Calling Mario's Pizza...
                 </div>
                 
