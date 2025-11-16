@@ -8,7 +8,11 @@ FlipTable is an AI-powered platform that uses escrow-backed demand aggregation t
 
 ## 🎯 The Problem
 
-U.S. restaurants waste over **[$100 billion](https://gofilta.com/restaurant-food-waste-stats-solutions/)** in surplus food annually—climbing to **[$162 billion](https://therestauranthq.com/restaurant-food-waste-statistics/)** when including packaging, disposal, and waste-related costs. Full-service restaurants account for **[$77 billion](https://gofilta.com/restaurant-food-waste-stats-solutions/)** and limited-service restaurants for **[$27 billion](https://gofilta.com/restaurant-food-waste-stats-solutions/)** in food value alone. The root cause? They can't liquidate surplus inventory fast enough at the end of the day, leading to massive financial losses and environmental waste.
+U.S. restaurants waste over **$100 billion** in surplus food annually—climbing to **$162 billion** when including packaging, disposal, and waste-related costs. Full-service restaurants account for **$77 billion** and limited-service restaurants for **$27 billion** in food value alone. The root cause? They can't liquidate surplus inventory fast enough at the end of the day, leading to massive financial losses and environmental waste.
+
+**Sources:**
+- [$100 billion, $77 billion, $27 billion](https://gofilta.com/news/restaurant-food-waste/) - Restaurant food waste statistics
+- [$162 billion](https://www.therestauranthq.com/trends/restaurant-food-waste-statistics/) - Total waste including packaging and disposal costs
 
 ## 💡 The Solution
 
