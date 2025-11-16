@@ -3,6 +3,7 @@ import './App.css'
 
 // API URL from environment variable or default to localhost
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001'
+const LOCUS_PAYMENT_API_URL = import.meta.env.VITE_LOCUS_PAYMENT_API_URL || 'http://localhost:5002'
 
 function App() {
   const [escrowData, setEscrowData] = useState(null)
@@ -41,10 +42,6 @@ function App() {
     fetchEscrowData();
   }, [])
 
-  const addTranscript = (speaker, text) => {
-    setTranscript(prev => [...prev, { speaker, text, timestamp: Date.now() }])
-  }
-
   const startDemo = () => {
     setDemoState('calling')
     setTranscript([])
@@ -75,22 +72,71 @@ function App() {
     }, 2000)
   }
 
-  const simulatePickup = async () => {
+  const completePayment = async () => {
     setIsPaymentLoading(true)
     
-    // Simulate API delay (2 seconds)
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    // Fake successful payment response
-    setPaymentResult({
-      status: "success",
-      transaction_id: "0xf4a2b8c1d9e3f7a6b5c4d2e1f9a8b7c6d5e4f3a2b1",
-      amount: "8.00",
-      recipient: "Mario's Pizza",
-      timestamp: new Date().toISOString()
-    })
-    
-    setIsPaymentLoading(false)
+    try {
+      // Get restaurant wallet address from match results
+      const restaurantWallet = matchResults?.restaurant?.wallet_address
+      const restaurantName = matchResults?.restaurant?.name || "Mario's Pizza"
+      const amount = matchResults?.clearing_price || 8.00
+      
+      if (!restaurantWallet) {
+        throw new Error('Restaurant wallet address not found. Please ensure the restaurant wallet is configured.')
+      }
+      
+      if (!matchResults) {
+        throw new Error('Match results not available. Please complete the matching process first.')
+      }
+      
+      console.log('💳 Initiating payment with Claude Agent:', {
+        amount,
+        recipient: restaurantName,
+        wallet: restaurantWallet
+      })
+      
+      // Call Locus payment API with Claude agent
+      const response = await fetch(`${LOCUS_PAYMENT_API_URL}/api/payment`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount: amount.toString(),
+          recipient_address: restaurantWallet,
+          recipient: restaurantName,
+          memo: `Payment for ${restaurantName} - Order #${Date.now()}`
+        })
+      })
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ message: 'Payment request failed' }))
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`)
+      }
+      
+      const data = await response.json()
+      
+      if (data.status === 'success') {
+        console.log('✅ Payment successful:', data.transaction_id)
+        setPaymentResult({
+          status: "success",
+          transaction_id: data.transaction_id,
+          amount: data.amount,
+          recipient: data.recipient || restaurantName,
+          timestamp: data.timestamp || new Date().toISOString()
+        })
+      } else {
+        throw new Error(data.message || 'Payment failed')
+      }
+    } catch (error) {
+      console.error('❌ Payment error:', error)
+      setPaymentResult({
+        status: "error",
+        message: error.message || 'Failed to process payment'
+      })
+    } finally {
+      setIsPaymentLoading(false)
+    }
   }
 
   return (
@@ -308,11 +354,11 @@ function App() {
         {demoState === 'done' && (
           <div className="mt-6 sm:mt-8 text-center">
             <button
-              onClick={simulatePickup}
-              disabled={isPaymentLoading || paymentResult}
+              onClick={completePayment}
+              disabled={isPaymentLoading || paymentResult || !matchResults}
               className="bg-willow-400 hover:bg-willow-500 active:bg-willow-600 disabled:bg-gray-400 disabled:cursor-not-allowed text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-base sm:text-lg transition-colors min-h-touch shadow-sm"
             >
-              {isPaymentLoading ? '⏳ Processing Payment...' : paymentResult ? '✅ Payment Complete' : '🏪 Simulate Pickup (Real Payment)'}
+              {isPaymentLoading ? '⏳ Processing Payment with Claude Agent...' : paymentResult ? '✅ Payment Complete' : !matchResults ? '⏳ Waiting for Match Results...' : '💳 Complete Payment with Claude Agent'}
             </button>
             
             {paymentResult && (
@@ -344,7 +390,7 @@ function App() {
                       
                       <div className="bg-willow-50 rounded p-3 mt-4">
                         <div className="text-xs text-gray-600 mb-1">✓ Verified on Base Blockchain</div>
-                        <div className="text-xs text-gray-600">✓ Powered by Locus</div>
+                        <div className="text-xs text-gray-600">✓ Powered by Locus & Claude Agent</div>
                       </div>
                     </div>
                   </>

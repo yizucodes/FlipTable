@@ -5,10 +5,10 @@ Restaurant:
 "Uh, wow, okay. Let me check... We have 8 Margherita pizzas and 6 Pepperoni pizzas left."
 
 Agent:
-"Perfect, so 14 pizzas total. My buyers' average bid is $9. I can take all 14 at $8 each. That's $112 guaranteed revenue right now instead of throwing them away. Deal?"
+"Perfect, so 14 pizzas total. My buyers' average bid is $0.09. I can take all 14 at $0.08 each. That's $1.12 guaranteed revenue right now instead of throwing them away. Deal?"
 
 Restaurant:
-"Yeah, absolutely! $112 is way better than zero. Let's do it."
+"Yeah, absolutely! $1.12 is way better than zero. Let's do it."
 
 Agent:
 "Great! You'll see 14 orders coming through your tablet in the next 2 minutes. Buyers will show QR codes for pickup between 7-8 PM. Money hits your account as soon as they scan. Thanks, talk tomorrow at 6!"
