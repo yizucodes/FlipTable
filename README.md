@@ -367,7 +367,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **YC Locus Hackathon 2025**
 
-Team: [Your Name/Team Name]
+Team: Yi and Nabarun
 
 ### Acknowledgments
 
