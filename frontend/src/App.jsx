@@ -14,15 +14,32 @@ function App() {
   const [isPaymentLoading, setIsPaymentLoading] = useState(false)
 
   useEffect(() => {
-    // Fetch escrow pool data
-    fetch(`${API_URL}/api/escrow-pool`, {
-      headers: {
-        'ngrok-skip-browser-warning': 'true'
+    // Fetch escrow pool data from backend
+    const fetchEscrowData = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/escrow-pool`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('Escrow data loaded:', data);
+        setEscrowData(data);
+      } catch (err) {
+        console.error('Error fetching escrow data:', err);
+        console.error('API_URL:', API_URL);
+        // Keep null to show loading state if API fails
+        setEscrowData(null);
       }
-    })
-      .then(res => res.json())
-      .then(data => setEscrowData(data))
-      .catch(err => console.error('Error fetching escrow data:', err))
+    };
+    
+    fetchEscrowData();
   }, [])
 
   const startDemo = () => {
@@ -41,8 +58,9 @@ function App() {
       
       // Call backend for matching
       fetch(`${API_URL}/api/match-results`, {
+        method: 'GET',
         headers: {
-          'ngrok-skip-browser-warning': 'true'
+          'Content-Type': 'application/json',
         }
       })
         .then(res => res.json())
