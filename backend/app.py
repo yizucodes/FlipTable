@@ -56,7 +56,7 @@ def get_match_results():
     # Restaurant inventory
     restaurant = restaurants[0]
     total_items = sum(item['quantity'] for item in restaurant['inventory'])  # 14 pizzas
-    negotiated_price = 8.00
+    negotiated_price = 0.8
     
     # Filter eligible buyers (bid >= negotiated price)
     eligible_buyers = [u for u in escrow_pool if u['amount_escrowed'] >= negotiated_price]
@@ -96,7 +96,11 @@ def get_match_results():
         "clearing_price": negotiated_price,
         "restaurant_revenue": total_revenue,
         "total_buyer_savings": total_savings,
-        "food_saved_lbs": len(matched_buyers) * 1.0  # 1 lb per pizza
+        "food_saved_lbs": len(matched_buyers) * 1.0,  # 1 lb per pizza
+        "restaurant": {
+            "name": restaurant['name'],
+            "wallet_address": RESTAURANT_WALLET or None
+        }
     })
 
 @app.route('/api/pickup', methods=['POST'])
@@ -113,7 +117,7 @@ def process_pickup():
             },
             json={
                 "recipient": RESTAURANT_WALLET,
-                "amount": "8.00",
+                "amount": "0.8",
                 "currency": "USDC",
                 "memo": f"FlipTable-{qr_code}"
             },
@@ -125,7 +129,7 @@ def process_pickup():
             return jsonify({
                 "status": "success",
                 "transaction_id": data.get('transaction_id', 'tx_demo_123'),
-                "amount": "8.00"
+                "amount": "0.8"
             })
         else:
             return jsonify({
